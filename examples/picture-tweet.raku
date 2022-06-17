@@ -2,10 +2,10 @@ use lib 'lib';
 use MIME::Base64;
 use Twitter;
 my Twitter $t .= new:
-    consumer-key        => 'rmSQMmFYTycugncd9OlFSNbiD',
-    consumer-secret     => 'W7zrXiC19hhiHdMYWvTsBh1VucTXamyn1tNwd2Wi0dICRbo7Kd',
-	access-token        => '3202129871-VOsTVGdvPrVn2uQJxNMJ8ArZfI2iS6oSutl3FDC',
-	access-token-secret => '0wsspSoQir4N7rwc5tIxlz7Lyzn8GyEIH7hVhLcDgqubw';
+    consumer-key        => 'flkgjödfklgjkdlöf',
+    consumer-secret     => 'dlfgjöldjfgklöjdsgklöjösdlgjölsdfgjösggl0dICRbo7Kd',
+	access-token        => 'lksdfjglkjdsfögkjdklgjlösdfgjlösdjglösfg6oSutl3FDC',
+	access-token-secret => 'sdjrgklöjdtrhölskdrjhösldjrhkdjhH7hVhLcDgqubw';
 
 
 # picture tweet
