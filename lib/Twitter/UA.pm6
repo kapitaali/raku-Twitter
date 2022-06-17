@@ -35,3 +35,33 @@ method request ($method, $action, %params) {
     %res<success> or fail "ERROR %res<status>: %res<reason>";
     return from-json %res<content>;
 }
+
+
+method upload-request ($method, %params) {
+    my $upload-api = 'https://upload.twitter.com/1.1/';
+    my $body
+    = %params.kv.map(&uri-escape).hash.sort.map(*.kv.join: '=').join: '&';
+
+    my $url = [~] $upload-api, 'media/upload.json';
+
+    my ($signature, $nonce, $timestamp) = self!sign: $method, $url, $body;
+
+    my $auth-header = [~] qq{OAuth oauth_consumer_key="$.consumer-key",},
+        qq{ oauth_nonce="$nonce", oauth_signature="$signature",},
+        qq{ oauth_signature_method="HMAC-SHA1", oauth_timestamp="$timestamp",},
+        qq{ oauth_token="$.access-token", oauth_version="1.0"};
+
+    my %res = do given $method {
+        when 'POST' {
+            $!ua.post: $url,
+                headers => { 'Authorization' => $auth-header, 'Content-Type' => 'application/x-www-form-urlencoded' },
+                content => $body;
+        }
+        when 'GET' {
+            $!ua.get: $url, headers => { 'Authorization' => $auth-header };
+        }
+    }
+
+    %res<success> or fail "ERROR %res<status>: %res<reason>";
+    return from-json %res<content>;
+}
